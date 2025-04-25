@@ -17,15 +17,21 @@ public class menu {
 		int opcao;
 		
 		Conta c1 = new Conta(1,123,1,"Aylla", 500000);
+		
+		//TESTES
 	
+		//visualizar conta toda
 		c1.visualizar();
 		
+		//sacar valor
 		c1.sacar(100);
 		c1.visualizar();
 		
+		//depositar valor
 		c1.depositar(1000);
 		c1.visualizar();
 		
+		//alterar o nome do titular
 		c1.setTitular("Ayla Bolsonaro");
 		c1.visualizar();
 		
