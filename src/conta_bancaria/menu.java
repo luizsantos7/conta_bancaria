@@ -3,6 +3,7 @@ package conta_bancaria;
 
 import java.util.Scanner;
 
+import conta_bancaria.model.Conta;
 import conta_bancaria.util.Cores;
 
 
@@ -15,12 +16,25 @@ public class menu {
 
 		int opcao;
 		
+		Conta c1 = new Conta(1,123,1,"Aylla", 500000);
+	
+		c1.visualizar();
+		
+		c1.sacar(100);
+		c1.visualizar();
+		
+		c1.depositar(1000);
+		c1.visualizar();
+		
+		c1.setTitular("Ayla Bolsonaro");
+		c1.visualizar();
+		
 		while(true) {
-			System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_CYAN_BOLD +"*****************************************************");
+			System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_CYAN_BOLD +"=====================================================");
+			System.out.println("            ____________________________             ");
+			System.out.println("            ||   BANCO DO BRASILIAN   ||             ");
 			System.out.println("                                                     ");
-			System.out.println("                BANCO DO BRASILIAN                   ");
-			System.out.println("                                                     ");
-			System.out.println("*****************************************************");
+			System.out.println("=====================================================");
 			System.out.println("                                                     ");
 			System.out.println("            1 - Criar Conta                          ");
 			System.out.println("            2 - Listar todas as Contas               ");
@@ -33,7 +47,7 @@ public class menu {
 			System.out.println("            9 - Bônus                                ");
 			System.out.println("            0 - Sair                                 ");
 			System.out.println("                                                     ");
-			System.out.println("*****************************************************");
+			System.out.println("=====================================================");
 			System.out.println("Entre com a opção desejada:                          ");
 			System.out.println("                                                     "+Cores.TEXT_WHITE);
 			
@@ -77,10 +91,10 @@ public class menu {
 	}
 	
 	public static void sobre() {
-		System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_CYAN_BOLD+"*****************************************************");
+		System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_CYAN_BOLD+"=====================================================");
 		System.out.println("Sistema desenvolvido por: Luiz H. dos Santos         ");
 		System.out.println("Generation: JAVA 82                                  ");
-		System.out.println("*****************************************************");
+		System.out.println("=====================================================");
 	}
 
 }
