@@ -2,8 +2,9 @@ package conta_bancaria;
 
 
 import java.util.Scanner;
-
 import conta_bancaria.model.Conta;
+import conta_bancaria.model.contaCorrente;
+import conta_bancaria.model.contaPoupanca;
 import conta_bancaria.util.Cores;
 
 
@@ -34,6 +35,26 @@ public class menu {
 		//alterar o nome do titular
 		c1.setTitular("Ayla Bolsonaro");
 		c1.visualizar();
+		
+		// instanciando um objeto da classe contaCorrente
+		contaCorrente cc1 = new contaCorrente(2, 456, 1, "Renata Negrini", 600000, 60000);
+		cc1.visualizar();
+		
+		cc1.sacar(659000);
+		cc1.visualizar();
+		
+		cc1.depositar(50000);
+		cc1.visualizar();
+		
+		contaPoupanca cp1 = new contaPoupanca(3,789,2,"Iago Peruca", 4000, "17/10/2004");
+		cp1.visualizar();
+		
+		cp1.sacar(3000);
+		cp1.visualizar();
+		cp1.depositar(5000);
+		cp1.visualizar();
+		
+		
 		
 		while(true) {
 			System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_CYAN_BOLD +"=====================================================");
@@ -93,7 +114,6 @@ public class menu {
 					System.out.println("Opção inválida!");
 			}
 		}
-
 	}
 	
 	public static void sobre() {
