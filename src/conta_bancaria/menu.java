@@ -2,7 +2,6 @@ package conta_bancaria;
 
 
 import java.util.Scanner;
-import conta_bancaria.model.Conta;
 import conta_bancaria.model.contaCorrente;
 import conta_bancaria.model.contaPoupanca;
 import conta_bancaria.util.Cores;
@@ -17,25 +16,6 @@ public class menu {
 
 		int opcao;
 		
-		Conta c1 = new Conta(1,123,1,"Aylla", 500000);
-		
-		//TESTES
-	
-		//visualizar conta toda
-		c1.visualizar();
-		
-		//sacar valor
-		c1.sacar(100);
-		c1.visualizar();
-		
-		//depositar valor
-		c1.depositar(1000);
-		c1.visualizar();
-		
-		//alterar o nome do titular
-		c1.setTitular("Ayla Bolsonaro");
-		c1.visualizar();
-		
 		// instanciando um objeto da classe contaCorrente
 		contaCorrente cc1 = new contaCorrente(2, 456, 1, "Renata Negrini", 600000, 60000);
 		cc1.visualizar();
@@ -46,6 +26,7 @@ public class menu {
 		cc1.depositar(50000);
 		cc1.visualizar();
 		
+		//iniciando um objeto da classe conta poupança
 		contaPoupanca cp1 = new contaPoupanca(3,789,2,"Iago Peruca", 4000, "17/10/2004");
 		cp1.visualizar();
 		
@@ -113,7 +94,9 @@ public class menu {
 				default:
 					System.out.println("Opção inválida!");
 			}
+			
 		}
+		
 	}
 	
 	public static void sobre() {
@@ -122,5 +105,4 @@ public class menu {
 		System.out.println("Generation: JAVA 82                                  ");
 		System.out.println("=====================================================");
 	}
-
 }
