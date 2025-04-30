@@ -1,6 +1,9 @@
 package conta_bancaria;
 
+import java.io.IOException;
 import java.util.Scanner;
+
+import conta_bancaria.controller.ContaController;
 import conta_bancaria.model.contaCorrente;
 import conta_bancaria.model.contaPoupanca;
 import conta_bancaria.util.Cores;
@@ -10,27 +13,19 @@ public class menu {
 	public static void main(String[] args) {
 
 		Scanner leia = new Scanner(System.in);
+		
+		ContaController contas = new ContaController();
 
-		int opcao;
-
-		// instanciando um objeto da classe contaCorrente
-		contaCorrente cc1 = new contaCorrente(2, 456, 1, "Renata Negrini", 600000, 60000);
-		cc1.visualizar();
-
-		cc1.sacar(659000);
-		cc1.visualizar();
-
-		cc1.depositar(50000);
-		cc1.visualizar();
-
-		// iniciando um objeto da classe conta poupança
-		contaPoupanca cp1 = new contaPoupanca(3, 789, 2, "Iago Peruca", 4000, "17/10/2004");
-		cp1.visualizar();
-
-		cp1.sacar(3000);
-		cp1.visualizar();
-		cp1.depositar(5000);
-		cp1.visualizar();
+		int opcao, numero, agencia, tipo;
+		String titular, aniversario;
+		float saldo, limite;
+		
+		contaCorrente cc1 = new contaCorrente(contas.gerarNumero(), 123, 1, "João da Silva", 1000.00f, 100.00f);
+		contas.cadastrar(cc1);
+		
+		contaPoupanca cp1 = new contaPoupanca(contas.gerarNumero(), 123, 2, "Maria da Silva", 1000.00f, "07/12/2004");
+		contas.cadastrar(cp1);
+		
 
 		while (true) {
 			System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_CYAN_BOLD
@@ -48,7 +43,6 @@ public class menu {
 			System.out.println("            6 - Sacar                                ");
 			System.out.println("            7 - Depositar                            ");
 			System.out.println("            8 - Transferir valores entre Contas      ");
-			System.out.println("            9 - Bônus                                ");
 			System.out.println("            0 - Sair                                 ");
 			System.out.println("                                                     ");
 			System.out.println("=====================================================");
@@ -57,7 +51,7 @@ public class menu {
 
 			opcao = leia.nextInt();
 
-			if (opcao == 9) {
+			if (opcao == 0) {
 				sobre();
 				System.exit(0);
 			}
@@ -65,30 +59,68 @@ public class menu {
 			switch (opcao) {
 			case 1:
 				System.out.println("Criar Conta\n");
+				
+				System.out.println("Digite o numero da Agência");
+				agencia = leia.nextInt();
+				System.out.println("Digite o nome do Titular da conta:");
+				leia.skip("\\R");
+				titular = leia.nextLine();
+				System.out.println("Digite o tipo da Conta: (1 - Corrente || 2 - Poupança");
+				tipo = leia.nextInt();
+				System.out.println("Digite o Saldo inicial da conta");
+				saldo = leia.nextFloat();
+				
+				switch(tipo) {
+					case 1 ->{
+						System.out.println("Digite o Limite:");
+						limite = leia.nextFloat();
+						contas.cadastrar(new contaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
+					}
+					case 2 ->{
+						System.out.println("Digite o seu Aniversário:");
+						leia.skip("\\R");
+						aniversario = leia.nextLine();
+						contas.cadastrar(new contaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+					}
+				}
+				
+				keyPress();
 				break;
 			case 2:
 				System.out.println("Todas contas registradas\n");
+				contas.listarTodas();
+				keyPress();
 				break;
 			case 3:
 				System.out.println("Buscar conta\n");
+				System.out.println("Digite o NUMERO/ID da conta que deseja consultar!\n");
+				numero = leia.nextInt();
+				contas.procurarPorNumero(numero);
+				keyPress();
 				break;
 			case 4:
 				System.out.println("Atualização de dados\n");
+				keyPress();
 				break;
 			case 5:
 				System.out.println("Deletar conta\n");
+				keyPress();
 				break;
 			case 6:
 				System.out.println("Saque\n");
+				keyPress();
 				break;
 			case 7:
 				System.out.println("Depósito\n");
+				keyPress();
 				break;
 			case 8:
 				System.out.println("Transferência\n");
+				keyPress();
 				break;
 			default:
 				System.out.println("Opção inválida!");
+				keyPress();
 			}
 
 		}
@@ -102,4 +134,19 @@ public class menu {
 		System.out.println("Generation: JAVA 82                                  ");
 		System.out.println("=====================================================");
 	}
+	
+	public static void keyPress() {
+		 
+		try {
+ 
+			System.out.println(Cores.TEXT_RESET + "\n\nPressione Enter para Continuar...");
+			System.in.read();
+ 
+		} catch (IOException e) {
+ 
+			System.err.println("Ocorreu um erro ao tentar ler o teclado");
+ 
+		}
+	}
+ 
 }
