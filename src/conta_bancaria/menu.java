@@ -1,9 +1,11 @@
 package conta_bancaria;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Scanner;
 
 import conta_bancaria.controller.ContaController;
+import conta_bancaria.model.Conta;
 import conta_bancaria.model.contaCorrente;
 import conta_bancaria.model.contaPoupanca;
 import conta_bancaria.util.Cores;
@@ -100,10 +102,53 @@ public class menu {
 				break;
 			case 4:
 				System.out.println("Atualização de dados\n");
+				
+				System.out.println("Digite o NUMERO/ID da conta que deseja Atualizar!\n");
+				numero = leia.nextInt();
+				
+				Optional<Conta> conta = contas.buscarNaCollection(numero);
+				
+				//confere se o numero esta cheio e se a conta existe
+				if(conta.isPresent()) {
+					
+					System.out.println("Digite o numero da Agência");
+					agencia = leia.nextInt();
+					
+					System.out.println("Digite o nome do Titular da conta:");
+					leia.skip("\\R");
+					titular = leia.nextLine();
+					
+					tipo = conta.get().getTipo();
+					
+					System.out.println("Digite o Saldo inicial da conta");
+					saldo = leia.nextFloat();
+					
+					//identifica o tipo
+					switch(tipo) {
+					case 1 ->{// se conta for corrente
+						System.out.println("Digite o Limite:");
+						limite = leia.nextFloat();
+						contas.atualizar(new contaCorrente(numero, agencia, tipo, titular, saldo, limite));
+					}
+					case 2 ->{// se conta for poupança
+						System.out.println("Digite o seu Aniversário:");
+						leia.skip("\\R");
+						aniversario = leia.nextLine();
+						contas.atualizar(new contaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
+					}
+				}
+					
+				}else
+					System.out.printf("\n A conta numero %d não existe!", numero);
+				
 				keyPress();
 				break;
 			case 5:
 				System.out.println("Deletar conta\n");
+				System.out.println("Digite o NUMERO/ID da conta que deseja deletar"
+						+ "!\n");
+				numero = leia.nextInt();
+				contas.deletar(numero);
 				keyPress();
 				break;
 			case 6:
