@@ -1,5 +1,6 @@
 package conta_bancaria.controller;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -67,22 +68,49 @@ public class ContaController implements ContaRepository {
 	}
 
 	@Override
-	public void sacar(int numero, float valor) {
-		// TODO Auto-generated method stub
+	public void sacar(int numero, float valor) {	
+		Optional<Conta> conta = buscarNaCollection(numero);
+		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+		
+		if (conta.isPresent()) {
+			if (conta.get().sacar(valor)== true)
+				System.out.printf("\nO saque no valor de %s"
+						+ ", foi efetuado com sucesso na Conta número %d", nfMoeda.format(valor), numero);
+		}else 
+			System.out.printf("\nA Conta número %d não foi encontrada.",numero);
 		
 	}
 
 	@Override
 	public void depositar(int numero, float valor) {
-		// TODO Auto-generated method stub
+		Optional<Conta> conta = buscarNaCollection(numero);
+		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+		
+		if (conta.isPresent()) {
+			conta.get().depositar(valor);
+			System.out.printf("\nO Depósito no valor de %s foi efetuado com sucesso na conta %d !!", nfMoeda.format(valor),numero);		
+		}else 
+			System.out.printf("\nA Conta número %d não foi encontrada.",numero);
 		
 	}
 
 	@Override
-	public void transferencia(int numerodeOrigem, int numerodeDestino, float valor) {
-		// TODO Auto-generated method stub
+	public void transferencia(int numeroOrigem, int numeroDestino, float valor) {
+		
+		Optional<Conta> contaOrigem = buscarNaCollection(numeroOrigem);
+		Optional<Conta> contaDestino = buscarNaCollection(numeroDestino);
+		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
+		
+		if (contaOrigem.isPresent() && contaDestino.isPresent()) {
+			if (contaOrigem.get().sacar(valor)== true) {
+				contaDestino.get().depositar(valor);
+				System.out.printf("\nA transferência no valor de %s, da Conta Numero %d para a Conta Numero %d foi efetuado!!", nfMoeda.format(valor),numeroOrigem,numeroDestino);		
+				}
+		}else 
+			System.out.printf("\nA Conta número %d não foi encontrada.",numero);
 		
 	}
+		
 	
 	// Métodos Auxiliares
 	
