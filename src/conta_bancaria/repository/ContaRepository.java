@@ -10,6 +10,7 @@ public interface ContaRepository {
 	public void cadastrar(Conta conta);
 	public void atualizar(Conta conta);
 	public void deletar(int num);
+	public void listarPorTitular(String titular);
 	
 	//metodo bancario
 	public void sacar(int numero, float valor);

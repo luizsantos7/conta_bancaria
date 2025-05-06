@@ -45,6 +45,7 @@ public class menu {
 			System.out.println("            6 - Sacar                                ");
 			System.out.println("            7 - Depositar                            ");
 			System.out.println("            8 - Transferir valores entre Contas      ");
+			System.out.println("            9 - Listar Contas por Titular            ");
 			System.out.println("            0 - Sair                                 ");
 			System.out.println("                                                     ");
 			System.out.println("=====================================================");
@@ -191,6 +192,18 @@ public class menu {
 				valor = leia.nextFloat();
 				
 				contas.transferencia(numero, numeroDestino, valor);
+				keyPress();
+				break;
+				
+			case 9:
+				System.out.println("Consultar contas por Titular\n");
+				
+				System.out.println("Digite o nome do titular: ");
+				leia.skip("\\R");
+				titular = leia.next();
+				
+				contas.listarPorTitular(titular);
+				
 				keyPress();
 				break;
 			default:
